@@ -17,7 +17,7 @@ public class CargoEntity implements Serializable {
     @NotEmpty
     private String descricao;
 
-    @ManyToMany
+    @OneToMany
     private FuncionarioEntity funcionario;
 
     public CargoEntity() {

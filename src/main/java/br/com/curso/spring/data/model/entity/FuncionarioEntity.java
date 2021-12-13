@@ -30,6 +30,9 @@ public class FuncionarioEntity {
     @OneToOne
     private CargoEntity cargo;
 
+    @OneToOne
+    private UnidadeTrabalhoEntity unidadeTrabalho;
+
     public FuncionarioEntity() {
     }
 

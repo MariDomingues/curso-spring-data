@@ -1,8 +1,6 @@
 package br.com.curso.spring.data.service;
 
-import br.com.curso.spring.data.model.entity.CargoEntity;
 import br.com.curso.spring.data.model.entity.FuncionarioEntity;
-import br.com.curso.spring.data.model.vo.CargoVO;
 import br.com.curso.spring.data.model.vo.FuncionarioVO;
 import br.com.curso.spring.data.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
