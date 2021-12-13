@@ -78,4 +78,13 @@ public class FuncionarioService {
 
         funcionarioRepository.deleteById(pIdFuncionario);
     }
+
+    public List<FuncionarioVO> consult(String pNomeFuncionario) {
+
+        List<FuncionarioVO> vFuncionario = new ArrayList<>();
+
+        funcionarioRepository.findByNome(pNomeFuncionario).forEach(f -> vFuncionario.add(new FuncionarioVO(f)));
+
+        return vFuncionario;
+    }
 }
