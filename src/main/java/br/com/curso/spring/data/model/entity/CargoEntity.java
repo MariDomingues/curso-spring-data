@@ -5,6 +5,8 @@ import br.com.curso.spring.data.model.vo.CargoVO;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cargo")
@@ -17,8 +19,8 @@ public class CargoEntity implements Serializable {
     @NotEmpty
     private String descricao;
 
-    @OneToMany
-    private FuncionarioEntity funcionario;
+    @OneToMany(mappedBy = "cargo")
+    private List<FuncionarioEntity> vFuncionario = new ArrayList<>();
 
     public CargoEntity() {
     }

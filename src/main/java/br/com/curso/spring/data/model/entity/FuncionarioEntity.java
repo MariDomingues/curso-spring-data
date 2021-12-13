@@ -1,12 +1,16 @@
 package br.com.curso.spring.data.model.entity;
 
 import br.com.curso.spring.data.model.vo.FuncionarioVO;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "funcionario")
@@ -27,11 +31,16 @@ public class FuncionarioEntity {
     private double salario;
     private LocalDate dataContratacao;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "id_cargo", nullable = false)
     private CargoEntity cargo;
 
-    @OneToOne
-    private UnidadeTrabalhoEntity unidadeTrabalho;
+    @Fetch(FetchMode.SELECT)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "funcionario_unidade",
+            joinColumns = {@JoinColumn(name = "fk_funcionario")},
+            inverseJoinColumns = {@JoinColumn(name = "fk_unidade")})
+    private List<UnidadeTrabalhoEntity> vUnidadeTrabalho = new ArrayList<>();
 
     public FuncionarioEntity() {
     }

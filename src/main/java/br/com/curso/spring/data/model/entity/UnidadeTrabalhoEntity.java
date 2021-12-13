@@ -1,11 +1,12 @@
 package br.com.curso.spring.data.model.entity;
 
-import br.com.curso.spring.data.model.vo.CargoVO;
 import br.com.curso.spring.data.model.vo.UnidadeTrabalhoVO;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "unidadeTrabalho")
@@ -21,8 +22,8 @@ public class UnidadeTrabalhoEntity implements Serializable {
     @NotEmpty
     private String endereco;
 
-    @OneToMany
-    private FuncionarioEntity funcionario;
+    @ManyToMany(mappedBy = "unidadeTrabalho", fetch = FetchType.EAGER)
+    private List<FuncionarioEntity> vFuncionario = new ArrayList<>();
 
     public UnidadeTrabalhoEntity() {
     }
@@ -53,11 +54,11 @@ public class UnidadeTrabalhoEntity implements Serializable {
         this.endereco = endereco;
     }
 
-    public FuncionarioEntity getFuncionario() {
-        return funcionario;
+    public List<FuncionarioEntity> getvFuncionario() {
+        return vFuncionario;
     }
 
-    public void setFuncionario(FuncionarioEntity funcionario) {
-        this.funcionario = funcionario;
+    public void setvFuncionario(List<FuncionarioEntity> vFuncionario) {
+        this.vFuncionario = vFuncionario;
     }
 }
