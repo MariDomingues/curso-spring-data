@@ -1,5 +1,7 @@
 package br.com.curso.spring.data.model.vo;
 
+import br.com.curso.spring.data.model.entity.CargoEntity;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -18,9 +20,9 @@ public class CargoVO {
     public CargoVO() {
     }
 
-    public CargoVO(int id, String descricao) {
-        this.id = id;
-        this.descricao = descricao;
+    public CargoVO(CargoEntity pCargo) {
+        this.id = pCargo.getId();
+        this.descricao = pCargo.getDescricao();
     }
 
     public int getId() {

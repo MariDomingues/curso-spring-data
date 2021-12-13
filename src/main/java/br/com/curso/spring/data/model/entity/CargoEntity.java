@@ -3,8 +3,8 @@ package br.com.curso.spring.data.model.entity;
 import br.com.curso.spring.data.model.vo.CargoVO;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.Locale;
 
 @Entity
 @Table(name = "cargo")
@@ -13,7 +13,12 @@ public class CargoEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
+    @NotEmpty
     private String descricao;
+
+    @ManyToMany
+    private FuncionarioEntity funcionario;
 
     public CargoEntity() {
     }
@@ -25,10 +30,6 @@ public class CargoEntity implements Serializable {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescricao() {

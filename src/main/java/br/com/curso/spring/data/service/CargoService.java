@@ -30,7 +30,7 @@ public class CargoService {
 
         List<CargoVO> vCargo = new ArrayList<>();
 
-        cargoI.forEach(c -> vCargo.add(new CargoVO(c.getId(), c.getDescricao())));
+        cargoI.forEach(c -> vCargo.add(new CargoVO(c)));
 
         return vCargo;
     }
