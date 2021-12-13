@@ -1,6 +1,8 @@
 package br.com.curso.spring.data.service;
 
+import br.com.curso.spring.data.model.entity.CargoEntity;
 import br.com.curso.spring.data.model.entity.FuncionarioEntity;
+import br.com.curso.spring.data.model.entity.UnidadeTrabalhoEntity;
 import br.com.curso.spring.data.model.vo.FuncionarioVO;
 import br.com.curso.spring.data.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +18,36 @@ public class FuncionarioService {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
+    @Autowired
+    private CargoService cargoService;
+
+    @Autowired
+    private UnidadeTrabalhoService unidadeTrabalhoService;
+
     public void insert(FuncionarioVO pFuncionario) {
 
-        funcionarioRepository.save(new FuncionarioEntity(pFuncionario));
+        FuncionarioEntity funcionario = new FuncionarioEntity(pFuncionario);
+        funcionario.setCargo(new CargoEntity(cargoService.consult(pFuncionario.getIdCargo())));
+
+        pFuncionario.getvIdUnidadeTrabalho().forEach(u -> {
+
+            funcionario.getvUnidadeTrabalho().add(new UnidadeTrabalhoEntity(unidadeTrabalhoService.consult(u)));
+        });
+
+        funcionarioRepository.save(funcionario);
     }
 
     public void update(FuncionarioVO pFuncionario) {
 
-        funcionarioRepository.save(new FuncionarioEntity(pFuncionario));
+        FuncionarioEntity funcionario = new FuncionarioEntity(pFuncionario);
+        funcionario.setCargo(new CargoEntity(cargoService.consult(pFuncionario.getIdCargo())));
+
+        pFuncionario.getvIdUnidadeTrabalho().forEach(u -> {
+
+            funcionario.getvUnidadeTrabalho().add(new UnidadeTrabalhoEntity(unidadeTrabalhoService.consult(u)));
+        });
+
+        funcionarioRepository.save(funcionario);
     }
 
     public List<FuncionarioVO> consult() {

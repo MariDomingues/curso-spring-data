@@ -1,6 +1,5 @@
 package br.com.curso.spring.data.controller;
 
-import br.com.curso.spring.data.model.vo.CargoVO;
 import br.com.curso.spring.data.model.vo.FuncionarioVO;
 import br.com.curso.spring.data.service.FuncionarioService;
 import com.sun.istack.NotNull;
@@ -28,7 +27,7 @@ public class FuncionarioController {
             funcionarioService.insert(pFuncionario);
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao salvar o funcionário: " + pFuncionario);
+            return ResponseEntity.badRequest().body("Erro ao salvar o funcionário: " + pFuncionario.getNome());
         }
 
         return ResponseEntity.ok(pFuncionario);

@@ -22,7 +22,7 @@ public class UnidadeTrabalhoEntity implements Serializable {
     @NotEmpty
     private String endereco;
 
-    @ManyToMany(mappedBy = "unidadeTrabalho", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "vUnidadeTrabalho", fetch = FetchType.EAGER)
     private List<FuncionarioEntity> vFuncionario = new ArrayList<>();
 
     public UnidadeTrabalhoEntity() {
@@ -30,8 +30,8 @@ public class UnidadeTrabalhoEntity implements Serializable {
 
     public UnidadeTrabalhoEntity(UnidadeTrabalhoVO pUnidadeTrabalho) {
         this.id = pUnidadeTrabalho.getId();
-        this.descricao = pUnidadeTrabalho.getDescricao();
-        this.endereco = pUnidadeTrabalho.getEndereco();
+        this.descricao = pUnidadeTrabalho.getDescricao().toUpperCase();
+        this.endereco = pUnidadeTrabalho.getEndereco().toUpperCase();
     }
 
     public int getId() {
@@ -42,23 +42,11 @@ public class UnidadeTrabalhoEntity implements Serializable {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao.toUpperCase();
-    }
-
     public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public List<FuncionarioEntity> getvFuncionario() {
         return vFuncionario;
-    }
-
-    public void setvFuncionario(List<FuncionarioEntity> vFuncionario) {
-        this.vFuncionario = vFuncionario;
     }
 }

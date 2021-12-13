@@ -48,9 +48,8 @@ public class UnidadeTrabalhoService {
         UnidadeTrabalhoVO unidadeTrabalho = new UnidadeTrabalhoVO();
 
         if (unidadeTrabalhoConsult.isPresent()) {
-
-            unidadeTrabalho.setId(unidadeTrabalhoConsult.get().getId());
-            unidadeTrabalho.setDescricao(unidadeTrabalhoConsult.get().getDescricao());
+            
+            unidadeTrabalho = new UnidadeTrabalhoVO(unidadeTrabalhoConsult.get());
         }
 
         return unidadeTrabalho;

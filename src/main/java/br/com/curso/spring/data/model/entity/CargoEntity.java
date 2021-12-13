@@ -27,7 +27,7 @@ public class CargoEntity implements Serializable {
 
     public CargoEntity(CargoVO pCargo) {
         this.id = pCargo.getId();
-        this.descricao = pCargo.getDescricao();
+        this.descricao = pCargo.getDescricao().toUpperCase();
     }
 
     public int getId() {
@@ -40,5 +40,9 @@ public class CargoEntity implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao.toUpperCase();
+    }
+
+    public List<FuncionarioEntity> getvFuncionario() {
+        return vFuncionario;
     }
 }

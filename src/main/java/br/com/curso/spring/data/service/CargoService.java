@@ -51,9 +51,7 @@ public class CargoService {
         CargoVO cargo = new CargoVO();
 
         if (cargoConsult.isPresent()) {
-
-            cargo.setId(cargoConsult.get().getId());
-            cargo.setDescricao(cargoConsult.get().getDescricao());
+            cargo = new CargoVO(cargoConsult.get());
         }
 
         return cargo;

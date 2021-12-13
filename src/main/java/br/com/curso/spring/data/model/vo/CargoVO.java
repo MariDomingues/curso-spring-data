@@ -9,12 +9,12 @@ import javax.validation.constraints.Positive;
 
 public class CargoVO {
 
-    @NotNull(message = "Informe um id!")
-    @Positive(message = "Informe um id!")
+    @NotNull
+    @Positive
     private int id;
 
-    @NotBlank(message = "Informe uma descrição!")
-    @NotEmpty(message = "Informe uma descrição!")
+    @NotBlank
+    @NotEmpty
     private String descricao;
 
     public CargoVO() {
@@ -29,15 +29,7 @@ public class CargoVO {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getDescricao() {
         return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 }
