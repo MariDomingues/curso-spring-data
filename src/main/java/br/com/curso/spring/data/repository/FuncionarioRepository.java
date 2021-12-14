@@ -33,7 +33,7 @@ public interface FuncionarioRepository extends CrudRepository<FuncionarioEntity,
             " AND f.dataContratacao = :pDataContratacao")
     List<FuncionarioEntity> findNomeSalarioMaiorDataContratacao(String pNome, double pSalario, LocalDate pDataContratacao);
 
-    List<FuncionarioEntity> findByVUnidadeTrabalho_Descricao(String pDescricao);
+    List<FuncionarioEntity> findByvUnidadeTrabalho_Descricao(String pDescricao);
 
     @Query("SELECT f" +
             " FROM FuncionarioEntity f" +

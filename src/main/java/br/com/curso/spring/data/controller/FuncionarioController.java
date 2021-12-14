@@ -1,6 +1,5 @@
 package br.com.curso.spring.data.controller;
 
-import br.com.curso.spring.data.model.vo.CargoVO;
 import br.com.curso.spring.data.model.vo.FuncionarioVO;
 import br.com.curso.spring.data.service.FuncionarioService;
 import com.sun.istack.NotNull;
@@ -77,13 +76,13 @@ public class FuncionarioController {
         return ResponseEntity.ok(funcionario);
     }
 
-    @GetMapping(value = "{nomeFuncionario}")
-    public ResponseEntity consult(@PathVariable("nomeFuncionario") @NotNull @NotEmpty String pNomeFuncionario) {
+    @GetMapping(params = "pNomeFuncionario")
+    public ResponseEntity consult(@NotNull @NotEmpty String pNomeFuncionario) {
 
         List<FuncionarioVO> vFuncionario = new ArrayList<>();
 
         try {
-            vFuncionario = funcionarioService.consult(pNomeFuncionario);
+            vFuncionario = funcionarioService.consult(pNomeFuncionario.toUpperCase());
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao carregar o funcionário indicado!");
