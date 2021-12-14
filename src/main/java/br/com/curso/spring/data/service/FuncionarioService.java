@@ -6,6 +6,9 @@ import br.com.curso.spring.data.model.entity.UnidadeTrabalhoEntity;
 import br.com.curso.spring.data.model.vo.FuncionarioVO;
 import br.com.curso.spring.data.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -94,6 +97,17 @@ public class FuncionarioService {
         List<FuncionarioVO> vFuncionario = new ArrayList<>();
 
         funcionarioRepository.findDataContratacaoMaior(pDataContratacao).forEach(f -> vFuncionario.add(new FuncionarioVO(f)));
+
+        return vFuncionario;
+    }
+
+    public List<FuncionarioVO> consultPage(int pNumeroPagina) {
+
+        Pageable page = PageRequest.of(pNumeroPagina, 2, Sort.unsorted());
+
+        List<FuncionarioVO> vFuncionario = new ArrayList<>();
+
+        funcionarioRepository.findAll(page).forEach(f -> vFuncionario.add(new FuncionarioVO(f)));
 
         return vFuncionario;
     }
