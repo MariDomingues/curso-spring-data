@@ -3,6 +3,7 @@ package br.com.curso.spring.data.repository;
 import br.com.curso.spring.data.model.entity.FuncionarioEntity;
 import br.com.curso.spring.data.model.interfaces.FuncionarioInterface;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface FuncionarioRepository extends PagingAndSortingRepository<FuncionarioEntity, Integer> {
+public interface FuncionarioRepository extends PagingAndSortingRepository<FuncionarioEntity, Integer>,
+        JpaSpecificationExecutor<FuncionarioEntity> {
 
     List<FuncionarioEntity> findByNome(String pNome);
 
@@ -20,10 +22,10 @@ public interface FuncionarioRepository extends PagingAndSortingRepository<Funcio
     //esta procurando funcionários pela descrição do cargo
     List<FuncionarioEntity> findByCargoDescricao(String pDescricao);
 
-    @Query("SELECT f" +
-            " FROM FuncionarioEntity f" +
-            " JOIN f.cargo c" +
-            " WHERE c.descricao = :pDescricao")
+    @Query("SELECT f"
+            + " FROM FuncionarioEntity f"
+            + " JOIN f.cargo c"
+            + " WHERE c.descricao = :pDescricao")
     List<FuncionarioEntity> findCargoDescricao(String pDescricao);
 
     //Derived Query Methods
@@ -46,15 +48,11 @@ public interface FuncionarioRepository extends PagingAndSortingRepository<Funcio
     List<FuncionarioEntity> findUnidadeTrabalhos_Descricao(String pDescricao);
 
     //native query, ou seja, query usando as nomenclaturas do banco
-    @Query(value = "SELECT *" +
-            " FROM funcionario AS f" +
-            " WHERE f.data_contratacao >= :pDataContratacao",
-            nativeQuery = true)
+    @Query(value = "SELECT *" + " FROM funcionario AS f" + " WHERE f.data_contratacao >= :pDataContratacao", nativeQuery = true)
     List<FuncionarioEntity> findDataContratacaoMaior(LocalDate pDataContratacao);
 
     //projeção
     @Query(value = "SELECT f.id, f.nome, f.salario" +
-            " FROM funcionario AS f",
-            nativeQuery = true)
+            " FROM funcionario AS f", nativeQuery = true)
     List<FuncionarioInterface> findFuncionarioSalario();
 }

@@ -3,12 +3,15 @@ package br.com.curso.spring.data.service;
 import br.com.curso.spring.data.model.entity.CargoEntity;
 import br.com.curso.spring.data.model.entity.FuncionarioEntity;
 import br.com.curso.spring.data.model.entity.UnidadeTrabalhoEntity;
+import br.com.curso.spring.data.model.vo.FuncionarioConsultaVO;
 import br.com.curso.spring.data.model.vo.FuncionarioVO;
 import br.com.curso.spring.data.repository.FuncionarioRepository;
+import br.com.curso.spring.data.repository.specification.FuncionarioSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -112,11 +115,25 @@ public class FuncionarioService {
         return vFuncionario;
     }
 
-    public List<FuncionarioVO> consultSalario() {
+    public List<FuncionarioVO> consultSalary() {
 
         List<FuncionarioVO> vFuncionario = new ArrayList<>();
 
         funcionarioRepository.findFuncionarioSalario().forEach(f -> vFuncionario.add(new FuncionarioVO(f)));
+
+        return vFuncionario;
+    }
+
+    public List<FuncionarioVO> consult(FuncionarioConsultaVO pFiltro) {
+
+        List<FuncionarioVO> vFuncionario = new ArrayList<>();
+
+        funcionarioRepository.findAll(Specification.where(
+                FuncionarioSpecification.nome(pFiltro.getNome() != null ? pFiltro.getNome().toUpperCase() : null)
+                        .or(FuncionarioSpecification.cpf(pFiltro.getCpf()))
+                        .or(FuncionarioSpecification.salario(pFiltro.getSalario() == 0 ? null : pFiltro.getSalario()))
+                        .or(FuncionarioSpecification.dataContratacao(pFiltro.getDataContratacao()))))
+                .forEach(f -> vFuncionario.add(new FuncionarioVO(f)));
 
         return vFuncionario;
     }

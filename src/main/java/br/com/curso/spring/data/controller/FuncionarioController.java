@@ -1,6 +1,7 @@
 package br.com.curso.spring.data.controller;
 
 import br.com.curso.spring.data.classe.Data;
+import br.com.curso.spring.data.model.vo.FuncionarioConsultaVO;
 import br.com.curso.spring.data.model.vo.FuncionarioVO;
 import br.com.curso.spring.data.service.FuncionarioService;
 import com.sun.istack.NotNull;
@@ -118,5 +119,20 @@ public class FuncionarioController {
         }
 
         return ResponseEntity.ok(pIdFuncionario);
+    }
+
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity consult(@RequestBody @Valid FuncionarioConsultaVO pFiltro) {
+
+        List<FuncionarioVO> vFuncionario = new ArrayList<>();
+
+        try {
+            vFuncionario = funcionarioService.consult(pFiltro);
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao consultar o funcionário seguindo o(s) filtro(s) indicado(s)!");
+        }
+
+        return ResponseEntity.ok(vFuncionario);
     }
 }
