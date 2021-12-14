@@ -13,6 +13,8 @@ public interface FuncionarioRepository extends PagingAndSortingRepository<Funcio
 
     List<FuncionarioEntity> findByNome(String pNome);
 
+    List<Funcionario> findByNome(String nome, Pageable pageable);
+
     //esta procurando funcionários pela descrição do cargo
     List<FuncionarioEntity> findByCargoDescricao(String pDescricao);
 
