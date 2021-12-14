@@ -111,4 +111,13 @@ public class FuncionarioService {
 
         return vFuncionario;
     }
+
+    public List<FuncionarioVO> consultSalario() {
+
+        List<FuncionarioVO> vFuncionario = new ArrayList<>();
+
+        funcionarioRepository.findFuncionarioSalario().forEach(f -> vFuncionario.add(new FuncionarioVO(f)));
+
+        return vFuncionario;
+    }
 }

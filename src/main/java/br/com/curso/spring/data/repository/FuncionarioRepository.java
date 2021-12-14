@@ -1,6 +1,7 @@
 package br.com.curso.spring.data.repository;
 
 import br.com.curso.spring.data.model.entity.FuncionarioEntity;
+import br.com.curso.spring.data.model.interfaces.FuncionarioInterface;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -50,4 +51,10 @@ public interface FuncionarioRepository extends PagingAndSortingRepository<Funcio
             " WHERE f.data_contratacao >= :pDataContratacao",
             nativeQuery = true)
     List<FuncionarioEntity> findDataContratacaoMaior(LocalDate pDataContratacao);
+
+    //projeção
+    @Query(value = "SELECT f.id, f.nome, f.salario" +
+            " FROM funcionario AS f",
+            nativeQuery = true)
+    List<FuncionarioInterface> findFuncionarioSalario();
 }

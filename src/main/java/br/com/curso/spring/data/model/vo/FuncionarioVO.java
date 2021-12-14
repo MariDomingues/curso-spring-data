@@ -2,6 +2,7 @@ package br.com.curso.spring.data.model.vo;
 
 import br.com.curso.spring.data.classe.Data;
 import br.com.curso.spring.data.model.entity.FuncionarioEntity;
+import br.com.curso.spring.data.model.interfaces.FuncionarioInterface;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import javax.validation.constraints.NotEmpty;
@@ -42,6 +43,12 @@ public class FuncionarioVO {
         this.dataContratacao = Data.getDataGUI(pFuncionario.getDataContratacao());
         this.idCargo = pFuncionario.getCargo().getId();
         pFuncionario.getvUnidadeTrabalho().forEach(u -> this.vIdUnidadeTrabalho.add(u.getId()));
+    }
+
+    public FuncionarioVO(FuncionarioInterface pFuncionario) {
+        this.id = pFuncionario.getId();
+        this.nome = pFuncionario.getNome();
+        this.salario = pFuncionario.getSalario();
     }
 
     public int getId() {
