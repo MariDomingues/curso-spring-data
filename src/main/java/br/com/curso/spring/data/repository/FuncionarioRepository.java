@@ -1,6 +1,7 @@
 package br.com.curso.spring.data.repository;
 
 import br.com.curso.spring.data.model.entity.FuncionarioEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ public interface FuncionarioRepository extends PagingAndSortingRepository<Funcio
 
     List<FuncionarioEntity> findByNome(String pNome);
 
-    List<Funcionario> findByNome(String nome, Pageable pageable);
+    List<FuncionarioEntity> findByNome(String nome, Pageable pageable);
 
     //esta procurando funcionários pela descrição do cargo
     List<FuncionarioEntity> findByCargoDescricao(String pDescricao);

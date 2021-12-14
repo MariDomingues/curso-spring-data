@@ -103,7 +103,7 @@ public class FuncionarioService {
 
     public List<FuncionarioVO> consultPage(int pNumeroPagina) {
 
-        Pageable page = PageRequest.of(pNumeroPagina, 2, Sort.unsorted());
+        Pageable page = PageRequest.of(pNumeroPagina, 2, Sort.by(Sort.Direction.DESC, "nome"));
 
         List<FuncionarioVO> vFuncionario = new ArrayList<>();
 
