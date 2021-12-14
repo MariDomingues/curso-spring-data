@@ -8,6 +8,7 @@ import br.com.curso.spring.data.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +85,15 @@ public class FuncionarioService {
         List<FuncionarioVO> vFuncionario = new ArrayList<>();
 
         funcionarioRepository.findByNome(pNomeFuncionario).forEach(f -> vFuncionario.add(new FuncionarioVO(f)));
+
+        return vFuncionario;
+    }
+
+    public List<FuncionarioVO> consult(LocalDate pDataContratacao) {
+
+        List<FuncionarioVO> vFuncionario = new ArrayList<>();
+
+        funcionarioRepository.findDataContratacaoMaior(pDataContratacao).forEach(f -> vFuncionario.add(new FuncionarioVO(f)));
 
         return vFuncionario;
     }

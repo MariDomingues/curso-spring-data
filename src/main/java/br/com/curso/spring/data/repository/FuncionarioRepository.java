@@ -25,7 +25,7 @@ public interface FuncionarioRepository extends CrudRepository<FuncionarioEntity,
     //Derived Query Methods
     List<FuncionarioEntity> findByNomeAndSalarioGreaterThanAndDataContratacao(String pNome, double pSalario, LocalDate pDataContratacao);
 
-    //JPQL
+    //JPQL, ou seja, query usando as nomenclaturas da classe
     @Query("SELECT f" +
             " FROM FuncionarioEntity AS f" +
             " WHERE f.nome = :pNome" +
@@ -40,4 +40,11 @@ public interface FuncionarioRepository extends CrudRepository<FuncionarioEntity,
             " JOIN f.vUnidadeTrabalho u" +
             " WHERE u.descricao = :pDescricao")
     List<FuncionarioEntity> findUnidadeTrabalhos_Descricao(String pDescricao);
+
+    //native query, ou seja, query usando as nomenclaturas do banco
+    @Query(value = "SELECT *" +
+            " FROM funcionario AS f" +
+            " WHERE f.data_contratacao >= :pDataContratacao",
+            nativeQuery = true)
+    List<FuncionarioEntity> findDataContratacaoMaior(LocalDate pDataContratacao);
 }
