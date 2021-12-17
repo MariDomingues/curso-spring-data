@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,9 +35,13 @@ public class CargoController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@RequestBody @Valid CargoVO pCargo) {
+    public ResponseEntity update(@RequestBody @Valid CargoVO pCargo, BindingResult pResult) {
 
         try {
+            if (pResult.hasErrors()) {
+                throw new Exception();
+            }
+
             cargoService.update(pCargo);
 
         } catch (Exception e) {

@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,9 +22,13 @@ public class UnidadeTrabalhoController {
     private UnidadeTrabalhoService unidadeTrabalhoService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity insert(@RequestBody @Valid UnidadeTrabalhoVO pUnidadeTrabalho) {
+    public ResponseEntity insert(@RequestBody @Valid UnidadeTrabalhoVO pUnidadeTrabalho, BindingResult pResult) {
 
         try {
+            if (pResult.hasErrors()) {
+                throw new Exception();
+            }
+
             unidadeTrabalhoService.insert(pUnidadeTrabalho);
 
         } catch (Exception e) {
@@ -34,9 +39,13 @@ public class UnidadeTrabalhoController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@RequestBody @Valid UnidadeTrabalhoVO pUnidadeTrabalho) {
+    public ResponseEntity update(@RequestBody @Valid UnidadeTrabalhoVO pUnidadeTrabalho, BindingResult pResult) {
 
         try {
+            if (pResult.hasErrors()) {
+                throw new Exception();
+            }
+
             unidadeTrabalhoService.update(pUnidadeTrabalho);
 
         } catch (Exception e) {
