@@ -8,6 +8,7 @@ import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,9 +24,13 @@ public class FuncionarioController {
     private FuncionarioService funcionarioService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity insert(@RequestBody @Valid FuncionarioVO pFuncionario) {
+    public ResponseEntity insert(@RequestBody @Valid FuncionarioVO pFuncionario, BindingResult pResult) {
 
         try {
+            if (pResult.hasErrors()) {
+                throw new Exception();
+            }
+
             funcionarioService.insert(pFuncionario);
 
         } catch (Exception e) {
@@ -36,9 +41,13 @@ public class FuncionarioController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@RequestBody @Valid FuncionarioVO pFuncionario) {
+    public ResponseEntity update(@RequestBody @Valid FuncionarioVO pFuncionario, BindingResult pResult) {
 
         try {
+            if (pResult.hasErrors()) {
+                throw new Exception();
+            }
+
             funcionarioService.update(pFuncionario);
 
         } catch (Exception e) {
@@ -122,7 +131,7 @@ public class FuncionarioController {
     }
 
     @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity consult(@RequestBody @Valid FuncionarioConsultaVO pFiltro) {
+    public ResponseEntity consult(@RequestBody FuncionarioConsultaVO pFiltro) {
 
         List<FuncionarioVO> vFuncionario = new ArrayList<>();
 
